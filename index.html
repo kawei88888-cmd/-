@@ -1,0 +1,692 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="毛小孩之家 - 寵物領養與愛心捐贈平台，為流浪動物找到溫暖的家">
+    <meta name="keywords" content="寵物領養,愛心捐贈,流浪動物,寵物送養,動物收容所">
+    <meta name="author" content="毛小孩之家">
+    <title>毛小孩之家 - 寵物領養與愛心捐贈平台</title>
+    <link rel="icon" type="image/x-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🐾</text></svg>">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Microsoft JhengHei', 'PingFang TC', 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+            flex-wrap: wrap;
+        }
+        
+        .logo {
+            font-size: 2rem;
+            font-weight: bold;
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 0.5rem;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+            flex-wrap: wrap;
+        }
+        
+        .nav-links a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+        }
+        
+        .nav-links a:hover, .nav-links a.active {
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+            color: white;
+            transform: translateY(-2px);
+        }
+        
+        .hero {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            margin: 2rem 0;
+            padding: 3rem 1rem;
+            border-radius: 20px;
+            text-align: center;
+            color: white;
+        }
+        
+        .hero h1 {
+            font-size: clamp(2rem, 5vw, 3rem);
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+        
+        .hero p {
+            font-size: clamp(1rem, 3vw, 1.2rem);
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+        
+        .quote {
+            font-style: italic;
+            font-size: 1.1rem;
+            margin-top: 1rem;
+            opacity: 0.8;
+        }
+        
+        .main-content {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            margin: 2rem 0;
+            padding: 2rem;
+            border-radius: 20px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        }
+        
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+        
+        .feature-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 2rem;
+            border-radius: 15px;
+            text-align: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 15px 40px rgba(102, 126, 234, 0.4);
+        }
+        
+        .feature-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .feature-card p {
+            opacity: 0.9;
+            line-height: 1.6;
+        }
+        
+        .pet-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+        
+        .pet-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .pet-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+        }
+        
+        .pet-image {
+            height: 200px;
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 3rem;
+        }
+        
+        .pet-info {
+            padding: 1.5rem;
+        }
+        
+        .pet-info h3 {
+            color: #333;
+            margin-bottom: 0.5rem;
+        }
+        
+        .pet-details {
+            color: #666;
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+        
+        .btn {
+            display: inline-block;
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+            color: white;
+            padding: 0.8rem 1.5rem;
+            border: none;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            text-align: center;
+            font-size: 0.9rem;
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(255, 107, 107, 0.3);
+        }
+        
+        .btn-secondary {
+            background: linear-gradient(45deg, #764ba2, #667eea);
+        }
+        
+        .donation-section {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 3rem 1rem;
+            border-radius: 20px;
+            margin: 3rem 0;
+            text-align: center;
+        }
+        
+        .donation-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+        
+        .donation-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 2rem;
+            border-radius: 15px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .donation-card:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-5px);
+        }
+        
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(5px);
+        }
+        
+        .modal-content {
+            background: white;
+            margin: 5% auto;
+            padding: 2rem;
+            border-radius: 20px;
+            width: 90%;
+            max-width: 500px;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+        
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+            line-height: 1;
+        }
+        
+        .close:hover {
+            color: #000;
+        }
+        
+        .form-group {
+            margin-bottom: 1rem;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: #333;
+        }
+        
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.8rem;
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-family: inherit;
+        }
+        
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            border-color: #667eea;
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+        
+        .success-message {
+            background: #d4edda;
+            color: #155724;
+            padding: 1rem;
+            border-radius: 10px;
+            margin-bottom: 1rem;
+            border: 1px solid #c3e6cb;
+        }
+        
+        .error-message {
+            background: #f8d7da;
+            color: #721c24;
+            padding: 1rem;
+            border-radius: 10px;
+            margin-bottom: 1rem;
+            border: 1px solid #f5c6cb;
+        }
+        
+        footer {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 2rem 0;
+            margin-top: 3rem;
+            text-align: center;
+            color: #666;
+        }
+        
+        .hidden {
+            display: none !important;
+        }
+        
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255,255,255,.3);
+            border-radius: 50%;
+            border-top-color: #fff;
+            animation: spin 1s ease-in-out infinite;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .fade-in {
+            animation: fadeIn 0.6s ease forwards;
+        }
+        
+        /* 響應式設計 */
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 15px;
+            }
+            
+            nav {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .nav-links {
+                justify-content: center;
+                margin-top: 1rem;
+                gap: 1rem;
+            }
+            
+            .hero {
+                padding: 2rem 1rem;
+            }
+            
+            .main-content {
+                padding: 1.5rem;
+            }
+            
+            .features {
+                grid-template-columns: 1fr;
+            }
+            
+            .pet-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .donation-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .modal-content {
+                margin: 10% auto;
+                width: 95%;
+                padding: 1.5rem;
+            }
+            
+            .logo {
+                font-size: 1.5rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .nav-links {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+            
+            .hero h1 {
+                font-size: 1.8rem;
+            }
+            
+            .hero p {
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="container">
+            <div class="logo">🐾 毛小孩之家</div>
+            <ul class="nav-links">
+                <li><a href="#" onclick="showSection('home')" class="nav-link active">首頁</a></li>
+                <li><a href="#" onclick="showSection('adoption')" class="nav-link">寵物領養</a></li>
+                <li><a href="#" onclick="showSection('donation')" class="nav-link">愛心捐贈</a></li>
+                <li><a href="#" onclick="showSection('about')" class="nav-link">關於我們</a></li>
+                <li><a href="#" onclick="openModal('loginModal')" class="nav-link">會員登入</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="container">
+        <!-- 首頁區域 -->
+        <div id="home" class="section">
+            <div class="hero">
+                <h1>給毛小孩一個溫暖的家</h1>
+                <p>連結愛心與需要，讓每個生命都能被珍愛</p>
+                <div class="quote">「盡己所能、善行延續」</div>
+            </div>
+
+            <div class="main-content">
+                <h2 style="text-align: center; margin-bottom: 2rem; color: #333;">平台服務</h2>
+                <div class="features">
+                    <div class="feature-card" onclick="showSection('adoption')">
+                        <h3>🏠 寵物領養</h3>
+                        <p>提供公立收容所和個人送養的寵物資訊，幫助毛小孩找到新家庭</p>
+                    </div>
+                    <div class="feature-card" onclick="showSection('donation')">
+                        <h3>❤️ 愛心捐贈</h3>
+                        <p>捐贈物資或金錢，支持流浪動物收容所和救援組織</p>
+                    </div>
+                    <div class="feature-card" onclick="openModal('registerModal')">
+                        <h3>🎁 刊登送養</h3>
+                        <p>免費刊登送養資訊，為您的寵物尋找合適的新主人</p>
+                    </div>
+                </div>
+
+                <div style="text-align: center; margin-top: 3rem; padding: 2rem; background: #f8f9fa; border-radius: 15px;">
+                    <h3>為什麼會有毛小孩之家？</h3>
+                    <p style="margin-top: 1rem; line-height: 1.8; color: #666;">
+                        我們是一群熱愛動物的志工，希望透過這個平台讓更多流浪動物能找到溫暖的家。
+                        每一個小生命都值得被愛護，我們相信透過大家的愛心和行動，
+                        可以讓這個世界變得更美好。除了提供領養資訊外，
+                        我們也新增了物資捐贈功能，讓大家能以不同方式參與公益。
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- 寵物領養區域 -->
+        <div id="adoption" class="section hidden">
+            <div class="main-content">
+                <h2 style="text-align: center; margin-bottom: 2rem;">寵物領養資訊</h2>
+                
+                <div style="text-align: center; margin-bottom: 2rem;">
+                    <button class="btn" onclick="filterPets()">🔍 篩選條件</button>
+                    <button class="btn btn-secondary" onclick="openModal('postAdoptionModal')" style="margin-left: 1rem;">📝 刊登送養</button>
+                </div>
+
+                <div class="pet-grid" id="petGrid">
+                    <div class="pet-card fade-in">
+                        <div class="pet-image">🐱</div>
+                        <div class="pet-info">
+                            <h3>小花 (台中市北屯區)</h3>
+                            <div class="pet-details">
+                                品種：米克斯貓 | 性別：母 | 年齡：2歲<br>
+                                個性：親人、活潑 | 結紮：已結紮<br>
+                                健康狀況：良好 | 預防接種：完成
+                            </div>
+                            <button class="btn" onclick="viewPetDetails('小花')">查看詳情</button>
+                        </div>
+                    </div>
+
+                    <div class="pet-card fade-in">
+                        <div class="pet-image">🐶</div>
+                        <div class="pet-info">
+                            <h3>阿福 (高雄市左營區)</h3>
+                            <div class="pet-details">
+                                品種：拉布拉多 | 性別：公 | 年齡：3歲<br>
+                                個性：溫和、忠誠 | 結紮：已結紮<br>
+                                健康狀況：良好 | 預防接種：完成
+                            </div>
+                            <button class="btn" onclick="viewPetDetails('阿福')">查看詳情</button>
+                        </div>
+                    </div>
+
+                    <div class="pet-card fade-in">
+                        <div class="pet-image">🐱</div>
+                        <div class="pet-info">
+                            <h3>咪咪 (台北市大安區)</h3>
+                            <div class="pet-details">
+                                品種：波斯貓 | 性別：母 | 年齡：1歲<br>
+                                個性：安靜、優雅 | 結紮：未結紮<br>
+                                健康狀況：良好 | 預防接種：部分完成
+                            </div>
+                            <button class="btn" onclick="viewPetDetails('咪咪')">查看詳情</button>
+                        </div>
+                    </div>
+
+                    <div class="pet-card fade-in">
+                        <div class="pet-image">🐶</div>
+                        <div class="pet-info">
+                            <h3>小黑 (新竹市東區)</h3>
+                            <div class="pet-details">
+                                品種：臘腸狗 | 性別：公 | 年齡：5歲<br>
+                                個性：活潑、好動 | 結紮：已結紮<br>
+                                健康狀況：良好 | 預防接種：完成
+                            </div>
+                            <button class="btn" onclick="viewPetDetails('小黑')">查看詳情</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div style="text-align: center; margin-top: 2rem;">
+                    <button class="btn btn-secondary" onclick="loadMorePets()">載入更多</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- 愛心捐贈區域 -->
+        <div id="donation" class="section hidden">
+            <div class="donation-section">
+                <h2>愛心捐贈專區</h2>
+                <p>您的每一份愛心都能幫助毛小孩們過得更好</p>
+
+                <div class="donation-grid">
+                    <div class="donation-card" onclick="openModal('materialDonationModal')">
+                        <h3>🎁 物資捐贈</h3>
+                        <p>捐贈飼料、玩具、醫療用品等日常用品</p>
+                        <button class="btn" style="margin-top: 1rem;">立即捐贈物資</button>
+                    </div>
+
+                    <div class="donation-card" onclick="openModal('moneyDonationModal')">
+                        <h3>💰 金錢捐助</h3>
+                        <p>定期或單次捐款支持動物收容所營運</p>
+                        <button class="btn" style="margin-top: 1rem;">立即捐款</button>
+                    </div>
+
+                    <div class="donation-card" onclick="openModal('volunteerModal')">
+                        <h3>🙋‍♀️ 志工服務</h3>
+                        <p>加入志工行列，用時間和行動幫助動物</p>
+                        <button class="btn" style="margin-top: 1rem;">成為志工</button>
+                    </div>
+                </div>
+
+                <div style="background: rgba(255,255,255,0.1); padding: 2rem; border-radius: 15px; margin-top: 2rem;">
+                    <h3>急需物資清單</h3>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-top: 1rem;">
+                        <div>• 乾糧（犬貓適用）</div>
+                        <div>• 濕食罐頭</div>
+                        <div>• 寵物尿布墊</div>
+                        <div>• 清潔用品</div>
+                        <div>• 醫療用品</div>
+                        <div>• 保暖毛毯</div>
+                        <div>• 玩具用品</div>
+                        <div>• 項圈牽繩</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 關於我們區域 -->
+        <div id="about" class="section hidden">
+            <div class="main-content">
+                <h2 style="text-align: center; margin-bottom: 2rem;">關於我們</h2>
+                
+                <div style="line-height: 2; color: #666;">
+                    <h3 style="color: #333; margin-bottom: 1rem;">我們的使命</h3>
+                    <p>毛小孩之家致力於為流浪動物搭建愛的橋樑，讓每一個毛小孩都能找到屬於自己的溫暖家庭。我們不僅提供領養資訊平台，更新增了物資捐贈功能，希望能以更多元的方式幫助需要幫助的動物們。</p>
+                    
+                    <h3 style="color: #333; margin: 2rem 0 1rem 0;">平台特色</h3>
+                    <ul style="margin-left: 2rem;">
+                        <li>免費提供寵物送養及領養資訊服務</li>
+                        <li>整合公立收容所及民間送養資訊</li>
+                        <li>新增物資捐贈功能，支持動物救援組織</li>
+                        <li>嚴格的會員驗證制度，確保動物福利</li>
+                        <li>提供完整的後續追蹤服務</li>
+                    </ul>
+                    
+                    <h3 style="color: #333; margin: 2rem 0 1rem 0;">聯絡我們</h3>
+                    <p>如果您是動物救援組織或相關公益團體，歡迎與我們聯繫合作。我們願意盡力支持與配合各項動物福利活動。</p>
+                    
+                    <div style="background: #f8f9fa; padding: 2rem; border-radius: 15px; margin-top: 2rem; text-align: center;">
+                        <p><strong>「愛不分大小，每一份關懷都珍貴」</strong></p>
+                        <p style="margin-top: 0.5rem;">讓我們一起為毛小孩創造更美好的明天</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 物資捐贈彈窗 -->
+    <div id="materialDonationModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('materialDonationModal')">&times;</span>
+            <h2>物資捐贈</h2>
+            <div id="materialDonationMessage"></div>
+            <form id="materialDonationForm">
+                <div class="form-group">
+                    <label for="donorName">捐贈者姓名 *</label>
+                    <input type="text" id="donorName" required>
+                </div>
+                <div class="form-group">
+                    <label for="donorPhone">聯絡電話 *</label>
+                    <input type="tel" id="donorPhone" required>
+                </div>
+                <div class="form-group">
+                    <label for="donorEmail">電子郵件 *</label>
+                    <input type="email" id="donorEmail" required>
+                </div>
+                <div class="form-group">
+                    <label for="itemType">捐贈物品類型 *</label>
+                    <select id="itemType" required>
+                        <option value="">請選擇</option>
+                        <option value="food">飼料食品</option>
+                        <option value="medical">醫療用品</option>
+                        <option value="supplies">日用品</option>
+                        <option value="toys">玩具用品</option>
+                        <option value="other">其他</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="itemDescription">物品詳細說明 *</label>
+                    <textarea id="itemDescription" rows="3" required placeholder="請詳細描述您要捐贈的物品"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="itemQuantity">數量 *</label>
+                    <input type="text" id="itemQuantity" required placeholder="例：5包、10個、1箱">
+                </div>
+                <div class="form-group">
+                    <label for="deliveryMethod">配送方式 *</label>
+                    <select id="deliveryMethod" required>
+                        <option value="">請選擇</option>
+                        <option value="pickup">到府收取</option>
+                        <option value="delivery">親自送達</option>
+                        <option value="mail">郵寄宅配</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="targetOrg">指定捐贈機構（可留空）</label>
+                    <input type="text" id="targetOrg" placeholder="如有特定想捐贈的機構請填寫">
+                </div>
+                <div class="form-group">
+                    <label for="donationNote">備註</label>
+                    <textarea id="donationNote" rows="2" placeholder="其他想說的話..."></textarea>
+                </div>
+                <button type="submit" class="btn" style="width: 100%;">
+                    <span id="materialSubmitText">提交捐贈申請</span>
+                    <span id="materialSubmitLoading" class="loading hidden"></span>
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- 金錢捐助彈
